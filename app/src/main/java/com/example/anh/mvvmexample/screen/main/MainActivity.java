@@ -1,9 +1,10 @@
-package com.example.anh.mvvmexample;
+package com.example.anh.mvvmexample.screen.main;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import com.example.anh.mvvmexample.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
