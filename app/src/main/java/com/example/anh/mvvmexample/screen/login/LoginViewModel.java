@@ -2,8 +2,12 @@ package com.example.anh.mvvmexample.screen.login;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import com.example.anh.mvvmexample.BR;
 import com.example.anh.mvvmexample.data.model.User;
 import com.example.anh.mvvmexample.data.source.AuthenicationDataSource;
 import com.example.anh.mvvmexample.data.source.AuthenicationReposity;
@@ -13,26 +17,31 @@ import com.example.anh.mvvmexample.data.source.AuthenicationReposity;
  */
 
 public class LoginViewModel extends BaseObservable {
-    private String mUsername;
+    private final static String TAG = "LoginViewModel";
+    private String mUserName;
     private String mPassword;
     private AuthenicationReposity mReposity;
     private Context mContext;
 
-    public LoginViewModel(String username,String password,Context context, AuthenicationReposity reposity) {
-        mUsername = username;
-        mPassword = password;
+    public LoginViewModel(Context context,
+            AuthenicationReposity reposity) {
         mReposity = reposity;
         mContext = context;
+    }
+
+    public void onLoginClick() {
+        Toast.makeText(mContext, mUserName, Toast.LENGTH_SHORT).show();
     }
 
     public View.OnClickListener onClick() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mReposity.login(mUsername, mPassword, new AuthenicationDataSource.Callback<User>() {
+                mReposity.login(mUserName, mPassword, new AuthenicationDataSource.Callback<User>() {
                     @Override
                     public void onSuccess(User data) {
-                        Toast.makeText(mContext, "username: " + data.getUsername(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "username: " + data.getUsername(),
+                                Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -42,5 +51,25 @@ public class LoginViewModel extends BaseObservable {
                 });
             }
         };
+    }
+
+    @Bindable
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String userName) {
+        mUserName = userName;
+        notifyPropertyChanged(BR.userName);
+    }
+
+    @Bindable
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
+        notifyPropertyChanged(BR.password);
     }
 }
