@@ -3,7 +3,7 @@ package com.example.anh.mvvmexample;
 import android.app.Application;
 import android.content.Context;
 
-public class App extends Application {
+public class ApplicationLogin extends Application {
 
     private static Context context;
 

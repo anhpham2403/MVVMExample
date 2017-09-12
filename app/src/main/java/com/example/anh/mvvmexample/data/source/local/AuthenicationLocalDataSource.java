@@ -1,6 +1,6 @@
 package com.example.anh.mvvmexample.data.source.local;
 
-import com.example.anh.mvvmexample.App;
+import com.example.anh.mvvmexample.ApplicationLogin;
 import com.example.anh.mvvmexample.data.model.User;
 import com.example.anh.mvvmexample.data.source.AuthenicationDataSource;
 import com.example.anh.mvvmexample.data.source.local.sqlite.UserLocalDataSource;
@@ -13,7 +13,7 @@ import java.util.Random;
 public class AuthenicationLocalDataSource implements AuthenicationDataSource {
     @Override
     public void login(String username, String password, Callback<User> callback) {
-        UserLocalDataSource dataSource = UserLocalDataSource.getInstance(App.getContext());
+        UserLocalDataSource dataSource = UserLocalDataSource.getInstance(ApplicationLogin.getContext());
         boolean check =  dataSource.checkUser(username,password);
         if(check){
             callback.onSuccess(new User(new Random().nextLong(),username,password));
